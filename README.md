@@ -1,2 +1,5 @@
 # URSS-Website
-urss website (angular 2)
+urss website
+Framework:
+  - https://angular.io/
+  - http://vertx.io/
