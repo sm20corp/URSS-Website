@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html ng-app lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>URSS Feading reader</title>
+
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- jVectorMap -->
+    <link href="css/maps/jquery-jvectormap-2.0.3.css" rel="stylesheet"/>
+
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="main.html" class="site_title"><i class="fa fa-star"></i> <span>URSS</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <h3>Général</h3>
+                <ul class="nav side-menu">
+                  <li>
+                    <a href="main.html"><i class="fa fa-feed"></i> Tous <span class="fa"></span></a>
+                  </li>
+                  <li>
+                    <a href="unread.html"><i class="fa fa-envelope"></i> Non lus <span class="fa"></span></a>
+                  </li>
+                  <li>
+                    <a href="favorite.html"><i class="fa fa-heart"></i> Favoris <span class="fa"></span></a>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav class="" role="navigation">
+              <div class="nav toggle" style="padding-bottom:14px">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+              <ul class="nav navbar-nav navbar-right">
+                <li role="presentation" class="dropdown">
+                  <a href="index.html" class="info-number">
+                    <i class="fa fa-sign-out"></i>
+                  </a>
+                </li>
+                <li id="username_navbar">
+                  Username
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <!-- top tiles -->
+          <div class="page-title">
+            <div class="title_left">
+              <h1>Favoris</h1>
+            </div>
+            <div class="title_right">
+              <div class="col-md-7 col-sm-7 col-xs-12 form-group pull-right top_search">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Ajouter un flux">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- /top tiles -->
+
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="dashboard_graph">
+
+                <div class="row x_title">
+                  <div class="col-md-6">
+                    <h4>Title of feed</h4>
+                  </div>
+
+                </div>
+
+                <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
+
+                  <div class="profile_img">
+
+                    <!-- end of image cropping -->
+                    <div id="crop-avatar">
+                      <!-- Current avatar -->
+                      <img class="img-responsive avatar-view" src="images/picture.jpg" alt="Avatar" title="Change the avatar">
+
+                      <!-- Cropping modal -->
+                      <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <form class="avatar-form" action="crop.php" enctype="multipart/form-data" method="post">
+                              <div class="modal-header">
+                                <button class="close" data-dismiss="modal" type="button">&times;</button>
+                                <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
+                              </div>
+                              <div class="modal-body">
+                                <div class="avatar-body">
+
+                                  <!-- Upload image and data -->
+                                  <div class="avatar-upload">
+                                    <input class="avatar-src" name="avatar_src" type="hidden">
+                                    <input class="avatar-data" name="avatar_data" type="hidden">
+                                    <label for="avatarInput">Local upload</label>
+                                    <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+                                  </div>
+
+                                  <!-- Crop and preview -->
+                                  <div class="row">
+                                    <div class="col-md-9">
+                                      <div class="avatar-wrapper"></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="avatar-preview preview-lg"></div>
+                                      <div class="avatar-preview preview-md"></div>
+                                      <div class="avatar-preview preview-sm"></div>
+                                    </div>
+                                  </div>
+
+                                  <div class="row avatar-btns">
+                                    <div class="col-md-9">
+                                      <div class="btn-group">
+                                        <button class="btn btn-primary" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees">Rotate Left</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="-15" type="button">-15deg</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="-30" type="button">-30deg</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="-45" type="button">-45deg</button>
+                                      </div>
+                                      <div class="btn-group">
+                                        <button class="btn btn-primary" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees">Rotate Right</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="15" type="button">15deg</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="30" type="button">30deg</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="45" type="button">45deg</button>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <button class="btn btn-primary btn-block avatar-save" type="submit">Done</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- <div class="modal-footer">
+                                                <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                                              </div> -->
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.modal -->
+
+                      <!-- Loading state -->
+                      <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+                    </div>
+                    <!-- end of image cropping -->
+
+                  </div>
+
+                </div>
+
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <blockquote>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                      posuere erat a ante Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                    <footer>Someone famous in <cite title="Source Title">Source Title</cite>
+                    </footer>
+                  </blockquote>
+                </div>
+
+
+                <div class="clearfix"></div>
+              </div>
+            </div>
+
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="dashboard_graph">
+
+                <div class="row x_title">
+                  <div class="col-md-6">
+                    <h4>Title of feed</h4>
+                  </div>
+
+                </div>
+
+                <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
+
+                  <div class="profile_img">
+
+                    <!-- end of image cropping -->
+                    <div id="crop-avatar">
+                      <!-- Current avatar -->
+                      <img class="img-responsive avatar-view" src="images/picture.jpg" alt="Avatar" title="Change the avatar">
+
+                      <!-- Cropping modal -->
+                      <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <form class="avatar-form" action="crop.php" enctype="multipart/form-data" method="post">
+                              <div class="modal-header">
+                                <button class="close" data-dismiss="modal" type="button">&times;</button>
+                                <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
+                              </div>
+                              <div class="modal-body">
+                                <div class="avatar-body">
+
+                                  <!-- Upload image and data -->
+                                  <div class="avatar-upload">
+                                    <input class="avatar-src" name="avatar_src" type="hidden">
+                                    <input class="avatar-data" name="avatar_data" type="hidden">
+                                    <label for="avatarInput">Local upload</label>
+                                    <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+                                  </div>
+
+                                  <!-- Crop and preview -->
+                                  <div class="row">
+                                    <div class="col-md-9">
+                                      <div class="avatar-wrapper"></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="avatar-preview preview-lg"></div>
+                                      <div class="avatar-preview preview-md"></div>
+                                      <div class="avatar-preview preview-sm"></div>
+                                    </div>
+                                  </div>
+
+                                  <div class="row avatar-btns">
+                                    <div class="col-md-9">
+                                      <div class="btn-group">
+                                        <button class="btn btn-primary" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees">Rotate Left</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="-15" type="button">-15deg</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="-30" type="button">-30deg</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="-45" type="button">-45deg</button>
+                                      </div>
+                                      <div class="btn-group">
+                                        <button class="btn btn-primary" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees">Rotate Right</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="15" type="button">15deg</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="30" type="button">30deg</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="45" type="button">45deg</button>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <button class="btn btn-primary btn-block avatar-save" type="submit">Done</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- <div class="modal-footer">
+                                                <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                                              </div> -->
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.modal -->
+
+                      <!-- Loading state -->
+                      <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+                    </div>
+                    <!-- end of image cropping -->
+
+                  </div>
+
+                </div>
+
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <blockquote>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                      posuere erat a ante Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                    <footer>Someone famous in <cite title="Source Title">Source Title</cite>
+                    </footer>
+                  </blockquote>
+                </div>
+
+
+                <div class="clearfix"></div>
+              </div>
+            </div>
+
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="dashboard_graph">
+
+                <div class="row x_title">
+                  <div class="col-md-6">
+                    <h4>Title of feed</h4>
+                  </div>
+
+                </div>
+
+                <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
+
+                  <div class="profile_img">
+
+                    <!-- end of image cropping -->
+                    <div id="crop-avatar">
+                      <!-- Current avatar -->
+                      <img class="img-responsive avatar-view" src="images/picture.jpg" alt="Avatar" title="Change the avatar">
+
+                      <!-- Cropping modal -->
+                      <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <form class="avatar-form" action="crop.php" enctype="multipart/form-data" method="post">
+                              <div class="modal-header">
+                                <button class="close" data-dismiss="modal" type="button">&times;</button>
+                                <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
+                              </div>
+                              <div class="modal-body">
+                                <div class="avatar-body">
+
+                                  <!-- Upload image and data -->
+                                  <div class="avatar-upload">
+                                    <input class="avatar-src" name="avatar_src" type="hidden">
+                                    <input class="avatar-data" name="avatar_data" type="hidden">
+                                    <label for="avatarInput">Local upload</label>
+                                    <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+                                  </div>
+
+                                  <!-- Crop and preview -->
+                                  <div class="row">
+                                    <div class="col-md-9">
+                                      <div class="avatar-wrapper"></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="avatar-preview preview-lg"></div>
+                                      <div class="avatar-preview preview-md"></div>
+                                      <div class="avatar-preview preview-sm"></div>
+                                    </div>
+                                  </div>
+
+                                  <div class="row avatar-btns">
+                                    <div class="col-md-9">
+                                      <div class="btn-group">
+                                        <button class="btn btn-primary" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees">Rotate Left</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="-15" type="button">-15deg</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="-30" type="button">-30deg</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="-45" type="button">-45deg</button>
+                                      </div>
+                                      <div class="btn-group">
+                                        <button class="btn btn-primary" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees">Rotate Right</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="15" type="button">15deg</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="30" type="button">30deg</button>
+                                        <button class="btn btn-primary" data-method="rotate" data-option="45" type="button">45deg</button>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <button class="btn btn-primary btn-block avatar-save" type="submit">Done</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- <div class="modal-footer">
+                                                <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                                              </div> -->
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.modal -->
+
+                      <!-- Loading state -->
+                      <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+                    </div>
+                    <!-- end of image cropping -->
+
+                  </div>
+
+                </div>
+
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <blockquote>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                      posuere erat a ante Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                    <footer>Someone famous in <cite title="Source Title">Source Title</cite>
+                    </footer>
+                  </blockquote>
+                </div>
+
+
+                <div class="clearfix"></div>
+              </div>
+            </div>
+
+          </div>
+          <br />
+
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="../vendors/bernii/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="../vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="../vendors/Flot/jquery.flot.js"></script>
+    <script src="../vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="../vendors/Flot/jquery.flot.time.js"></script>
+    <script src="../vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="../vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="js/flot/jquery.flot.orderBars.js"></script>
+    <script src="js/flot/date.js"></script>
+    <script src="js/flot/jquery.flot.spline.js"></script>
+    <script src="js/flot/curvedLines.js"></script>
+    <!-- jVectorMap -->
+    <script src="js/maps/jquery-jvectormap-2.0.3.min.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="js/moment/moment.min.js"></script>
+    <script src="js/datepicker/daterangepicker.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+
+  </body>
+</html>
