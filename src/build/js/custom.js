@@ -14,12 +14,16 @@ var CURRENT_URL = window.location.href.split('?')[0],
     $NAV_MENU = $('.nav_menu'),
     $FOOTER = $('footer');
 
+$(document).onload(function(){$SIDEBAR_MENU.find('#login_row_minified').hide();$SIDEBAR_MENU.find('#subscribe_row_minified').hide();});
 // Sidebar
 $(document).ready(function() {
     // TODO: This is some kind of easy fix, maybe we can improve this
     var setContentHeight = function () {
         // reset height
         $RIGHT_COL.css('min-height', $(window).height());
+        $SIDEBAR_MENU.find('#login_row_minified').hide();
+        $SIDEBAR_MENU.find('#subscribe_row_minified').hide();
+        console.log('mdr');
 
         var bodyHeight = $BODY.outerHeight(),
             footerHeight = $BODY.hasClass('footer_fixed') ? 0 : $FOOTER.height(),
@@ -55,6 +59,7 @@ $(document).ready(function() {
         }
     });
 
+    
     // toggle small or large menu
     $MENU_TOGGLE.on('click', function() {
         if ($BODY.hasClass('nav-md')) {
@@ -63,6 +68,8 @@ $(document).ready(function() {
             $SIDEBAR_MENU.find('#username_password').hide();
             $SIDEBAR_MENU.find('#connect_row').hide();
             $SIDEBAR_MENU.find('#subscribe_row').hide();
+            document.getElementById ("login_row_minified" ).style.visibility = "visible"
+            document.getElementById ("subscribe_row_minified" ).style.visibility = "visible"
             $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
         } else {
             $SIDEBAR_MENU.find('li.active-sm ul').show();
@@ -70,6 +77,8 @@ $(document).ready(function() {
             $SIDEBAR_MENU.find('#username_password').show();
             $SIDEBAR_MENU.find('#connect_row').show();
             $SIDEBAR_MENU.find('#subscribe_row').show();
+            document.getElementById ("login_row_minified" ).style.visibility = "hidden"
+            document.getElementById ("subscribe_row_minified" ).style.visibility = "hidden"
             $SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
         }
 
