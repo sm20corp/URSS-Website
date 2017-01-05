@@ -16,12 +16,11 @@ To use the website localy you must use the following command :
 **npm**
 
 ```
-npm install http-server -g
+npm install
 ```
 
-***http-serveur**
 ```
-http-server /path/to/app
+npm start
 ```
 
-Then go to IP adress displayed on your terminal.
+Then go to http://localhost:8000
