@@ -32,12 +32,12 @@ $(document).ready(function() {
         // normalize content
         contentHeight -= $NAV_MENU.height() + footerHeight;
 
-        $RIGHT_COL.css('min-height', contentHeight);
     };
+
+    $(".left_col").on('click', function(ev) {$('#myModal').modal("hide")});
 
     $SIDEBAR_MENU.find('a').on('click', function(ev) {
         var $li = $(this).parent();
-
         if ($li.is('.active')) {
 
             $('ul:first', $li).slideUp(function() {

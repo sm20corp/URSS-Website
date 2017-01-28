@@ -15,31 +15,10 @@
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
-                      <!--  <h3>Déjà membre ?</h3> -->
+                        <!--  <h3>Déjà membre ?</h3> -->
 
                         <ul class="nav side-menu">
-                        <!--    <form name="myform" ng-controller="loginCtrl" ng-submit="login()" novalidate>
-                                <li id="username_login">
-                                    <div class="form-group has-feedback ">
-                                        <input id="login_form" type="text" class="form-control has-feedback-left" placeholder="Nom d'utilisateur" ng-model="username" required>
-                                        <span id="login_icon" class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
-                                </li>
 
-                                <li id="username_password">
-                                    <div class="form-group has-feedback">
-                                        <input id="password_form" type="password" class="form-control  has-feedback-left" placeholder="Mot de passe" ng-model="password" required>
-                                        <span id="password_icon" class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
-                                    </div>
-                                </li>
-                                <li id="connect_row">
-                                    <button id="button_login" ng-disabled="!myform.$valid" type="submit" class="btn btn-default">  Se connecter</button>
-                                </li>
-                            </form>
-                            <li id="subscribe_row">
-                                <div>
-                                    <a href="production/subscribe.html" class="to_register"> S'inscrire </a>
-                                </div> -->
                             </li>
                             <li id="feed_visitor" class="current-page active">
                                 <a href="#/"><i class="fa fa-rss"></i> Consulter un Feed <span class="fa"></span></a>
@@ -78,7 +57,7 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main" style="height: 100vw;">
+        <div class="right_col" style="min-height:100vh" role="main" ng-controller="feedListCtrl">
             <!-- top tiles -->
             <div class="page-title">
                 <div class="title_left">
@@ -88,9 +67,9 @@
                 <div class="title_right">
                     <div class="col-md-7 col-sm-7 col-xs-12 form-group pull-right top_search">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Ajouter un flux">
+                            <input ng-model="feedUrl" ng-keyup="$event.keyCode == 13 && getFeed()" type="text" class="form-control" placeholder="Ajouter un flux">
                             <span class="input-group-btn">
-                    <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                    <button ng-click="getFeed()" class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
                   </span>
                         </div>
                     </div>
@@ -99,7 +78,74 @@
             </div>
             <!-- /top tiles -->
 
-            <article-list></article-list>
+            <div ng-repeat="article in articles" class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="dashboard_graph">
+
+                        <div class="row x_title">
+                            <div class="col-md-6">
+                                <h4>{{article.data.title}}</h4>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
+
+                            <div class="profile_img">
+
+                                <!-- end of image cropping -->
+                                <div id="crop-avatar">
+                                    <!-- Current avatar -->
+                                    <img class="img-responsive avatar-view" ng-src="{{article.data.enclosureUrl}}" >
+
+
+                                </div>
+                                <!-- end of image cropping -->
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <blockquote>
+                              <p>{{article.data.pubDate}}</p>
+                                <p>{{article.data.description}}</p>
+                                  <p><button ng-click="test(article.data.link)" type="button " class="btn btn-round btn-warning" data-toggle="modal" data-target="#myModal">Voir l'article</button>
+                                  <a type="button " href="{{article.data.link}}" class="btn btn-round btn-warning">Accéder au site</a></p>
+
+                            </blockquote>
+
+
+                        </div>
+                        <!-- Trigger the modal with a button -->
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+            <div class="container">
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog modal-lg">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <iframe width="100%" height="500px" ng-src="{{selectedArticle || trustUrl}}"></iframe>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-round btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div ng-if="articles.length == 0">
+                Vous n'avez aucun flux à afficher
+            </div>
 
             <!-- /page content -->
 
