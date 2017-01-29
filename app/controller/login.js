@@ -1,52 +1,65 @@
 'use strict';
 
+/**
+   * @memberof app
+   * @ngdoc controller
+   * @description
+   * Handles application credential creation and authentification.
+   * @name loginCtrl
+   * @param $scope {service} Controller scope
+   * @param $http {service} Http service
+   * @param $window {service} Reference to browser window object
+   * @param $location {service} Service that parses the URL in the browser address bar (based on the window.location) and makes the URL available to your application
+   */
 angular.module('urssApp').controller('loginCtrl', function($scope, $http, $window, $location) {
     $scope.emailFormat = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
+    $scope.error = "false";
+
+    /**
+      * Login function making HTTP Post request to send login info
+      * If success we store the token and the username, and we update the login state
+      * If failure we display the error for the user
+      * @memberof loginCtrl
+      */
     $scope.login = function() {
+      $scope.error = "false";
         console.log("login result = " + "{" + $scope.username + ", " + $scope.password + "}");
-        var isLogged = $window.localStorage['is-logged'];
+            $http({
+                url: 'http://79.137.78.39:4242/auth/local',
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    'email': $scope.username,
+                    'password': $scope.password
+                }
+            }).then(function mySucces(response) {
+                var accessToken = response.data.token;
+                var userId = response.data.userId;
+                console.log("Success " + accessToken);
+                $window.localStorage['is-logged'] = "true";
+                $window.localStorage['access-token'] = accessToken;
+                $window.localStorage['username'] = $scope.username;
+                $window.localStorage['user-id'] = userId;
+                $location.path("/main");
+            }, function myError(response) {
+                $scope.error = "true";
+                console.log("login error not found " + response.statusText);
+            });
 
-        /*if (typeof isLogged == 'undefined') {
-            $window.localStorage['is-logged'] = "true";
-            isLogged = "true";
-            console.log("undefined");
-        } else if (isLogged == "true") {
-            $window.localStorage['is-logged'] = "false";
-            isLogged = "false";
-            console.log("true");
-        } else if (isLogged == "false") {
-            $window.localStorage['is-logged'] = "true";
-            isLogged = "true";
-            console.log("false");
-        }*/
-        console.log("isLogged value :" + isLogged);
-
-        $http({
-            url: 'http://79.137.78.39:4242/auth/local',
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: {
-                'email': $scope.username,
-                'password': $scope.password
-            }
-        }).then(function mySucces(response) {
-            var accessToken = response.data.id;
-            console.log("Success " + accessToken);
-            $window.localStorage['is-logged'] = "true";
-            $window.localStorage['access-token'] = accessToken;
-            $location.path( "/main" );
-        }, function myError(response) {
-
-            console.log("Fail" + response.statusText);
-        });
     };
+    /**
+      * Subscribe function making HTTP Post request to send subscribe info
+      * If success we store the token and move to login page
+      * Contains a directive that check that the two passwords matches
+      * @memberof loginCtrl
+      */
     $scope.subscribe = function() {
         console.log("subscribe result = " + "{" + $scope.username + ", " + $scope.password + ", " + $scope.password_verify + "}");
 
         $http({
-            url: 'http://79.137.78.39:4242/api/credentials/',
+            url: 'http://79.137.78.39:4242/api/users/createAccount',
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -59,7 +72,7 @@ angular.module('urssApp').controller('loginCtrl', function($scope, $http, $windo
             var accessToken = response.data.id;
             console.log("Success " + accessToken);
             $window.localStorage['access-token'] = accessToken;
-            $location.path( "/login" );
+            $location.path("/login");
         }, function myError(response) {
 
             console.log("Fail" + response.statusText);

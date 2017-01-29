@@ -69,8 +69,8 @@
                         <div class="input-group">
                             <input ng-model="feedUrl" ng-keyup="$event.keyCode == 13 && getFeed()" type="text" class="form-control" placeholder="Ajouter un flux">
                             <span class="input-group-btn">
-                    <button ng-click="getFeed()" class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-                  </span>
+                              <button ng-click="getFeed()" class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
             </div>
             <!-- /top tiles -->
 
-            <div ng-repeat="article in articles" class="row">
+            <div ng-repeat="article in articles  | orderBy:  '-data.pubDate'" class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="dashboard_graph">
 
@@ -96,7 +96,7 @@
                                 <!-- end of image cropping -->
                                 <div id="crop-avatar">
                                     <!-- Current avatar -->
-                                    <img class="img-responsive avatar-view" ng-src="{{article.data.enclosureUrl}}" >
+                                    <img class="img-responsive avatar-view" ng-src="{{article.data.enclosureUrl}}">
 
 
                                 </div>
@@ -108,10 +108,10 @@
 
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <blockquote>
-                              <p>{{article.data.pubDate}}</p>
+                                <p ng-bind="{{article.data.pubDate}} * 1000 | date:'MM-dd-yyyy HH:mm:ss'"></p>
                                 <p>{{article.data.description}}</p>
-                                  <p><button ng-click="test(article.data.link)" type="button " class="btn btn-round btn-warning" data-toggle="modal" data-target="#myModal">Voir l'article</button>
-                                  <a type="button " href="{{article.data.link}}" class="btn btn-round btn-warning">Accéder au site</a></p>
+                                <p><button ng-click="test(article.data.link)" type="button " class="btn btn-round btn-warning" data-toggle="modal" data-target="#myModal">Voir l'article</button>
+                                    <a type="button " href="{{article.data.link}}" class="btn btn-round btn-warning">Accéder au site</a></p>
 
                             </blockquote>
 
@@ -142,7 +142,9 @@
                 </div>
 
             </div>
-
+            <div style="text-shadow:none;padding: 2px;color:#ffffff; text-align: center;" class="alert alert-danger alert-dismissible fade in" role="alert" ng-show="error == 'true'">
+                Lien du flux RSS invalide
+            </div>
             <div ng-if="articles.length == 0">
                 Vous n'avez aucun flux à afficher
             </div>

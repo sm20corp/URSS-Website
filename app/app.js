@@ -15,8 +15,7 @@ angular.module('urssApp', ['ngRoute']).config(['$locationProvider', '$routeProvi
       controller:'loginCtrl'
   })
   .when("/main", {
-      templateUrl : "production/main.html",
-      controller:'feedListUserCtrl'
+      templateUrl : "production/main.html"
   })
   .when("/unread", {
       templateUrl : "production/unread.html"
@@ -30,10 +29,7 @@ angular.module('urssApp', ['ngRoute']).config(['$locationProvider', '$routeProvi
 run(function($rootScope, $location, $window) {
   $rootScope.$on("$routeChangeStart", function(event, next, current) {
     console.log(next.templateUrl);
-    var data = $window.localStorage['access-token'];
-    if (typeof data != 'undefined') {
-      console.log(data);
-    }
+    
     var isLogged = $window.localStorage['is-logged'];
     if (isLogged && isLogged == 'false') {
       if (next.templateUrl == "production/main.html" || next.templateUrl == "production/favorite.html"

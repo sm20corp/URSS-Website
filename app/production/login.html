@@ -19,28 +19,7 @@
                           <!--  <h3>Déjà membre ?</h3> -->
 
                             <ul class="nav side-menu">
-                            <!--    <form name="myform" ng-controller="loginCtrl" ng-submit="login()" novalidate>
-                                    <li id="username_login">
-                                        <div class="form-group has-feedback ">
-                                            <input id="login_form" type="text" class="form-control has-feedback-left" placeholder="Nom d'utilisateur" ng-model="username" required>
-                                            <span id="login_icon" class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                                        </div>
-                                    </li>
 
-                                    <li id="username_password">
-                                        <div class="form-group has-feedback">
-                                            <input id="password_form" type="password" class="form-control  has-feedback-left" placeholder="Mot de passe" ng-model="password" required>
-                                            <span id="password_icon" class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
-                                        </div>
-                                    </li>
-                                    <li id="connect_row">
-                                        <button id="button_login" ng-disabled="!myform.$valid" type="submit" class="btn btn-default">  Se connecter</button>
-                                    </li>
-                                </form>
-                                <li id="subscribe_row">
-                                    <div>
-                                        <a href="production/subscribe.html" class="to_register"> S'inscrire </a>
-                                    </div> -->
                                 </li>
                                 <li id="feed_visitor">
                                     <a href="#/"><i class="fa fa-rss"></i> Consulter un Feed <span class="fa"></span></a>
@@ -98,6 +77,9 @@
                                     </div>
                                     <div>
                                         <input type="password" class="form-control" placeholder="Mot de passe" ng-model="password" required />
+                                    </div>
+                                    <div style="text-shadow:none;padding: 2px;color:#ffffff" class="alert alert-danger alert-dismissible fade in" role="alert" ng-show="error == 'true'">
+                                        Email ou mot de passe incorrect
                                     </div>
                                     <div>
                                         <button class="btn btn-default " ng-disabled="myform.$invalid">Se connecter</button>
