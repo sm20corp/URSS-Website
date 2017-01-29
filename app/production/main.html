@@ -114,7 +114,7 @@
 
                       <div class="col-md-9 col-sm-9 col-xs-12">
                           <blockquote>
-                              <p ng-bind="{{article.data.pubDate}} * 1000 | date:'MM-dd-yyyy HH:mm:ss'">
+                              <p ng-if="article.data.pubDate" ng-bind="{{article.data.pubDate}} * 1000 | date:'MM-dd-yyyy HH:mm:ss'">
                               </p>
 
                               <p>{{article.data.description}}</p>
