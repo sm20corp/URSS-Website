@@ -22,7 +22,7 @@ angular.module('urssApp').controller('feedListUserCtrl', function($scope, $http,
     var userId;
     var history;
     var starredArticles;
-
+    var unreadArticles;
     $scope.articleSelected = function(user) {
             if (starredArticles.indexOf(user) !== -1) {
                 return (1);
@@ -30,6 +30,13 @@ angular.module('urssApp').controller('feedListUserCtrl', function($scope, $http,
                 return (-1);
             }
         }
+        $scope.unreadSelected = function(user) {
+                if (unreadArticles.indexOf(user) !== -1) {
+                    return (1);
+                } else {
+                    return (-1);
+                }
+            }
         /**
          * Select article as favorite
          * @memberof feedListUserCtrl
@@ -54,6 +61,30 @@ angular.module('urssApp').controller('feedListUserCtrl', function($scope, $http,
                 });
             }
         }
+        /**
+         * Select article as unread
+         * @memberof feedListUserCtrl
+         */
+        $scope.selectUnread = function(articleId) {
+              if ($scope.unreadSelected(articleId) == -1) {
+                  var url = 'http://79.137.78.39:4242/api/users/viewArticle/' + articleId;
+                  $http({
+                      url: url,
+                      method: "PUT",
+                      headers: {
+                          'Content-Type': 'application/json',
+                          'Authorization': token
+                      }
+                  }).then(function mySucces(response) {
+                      console.log("success add feed to history");
+                      getHistoryWithUserId(history);
+
+                  }, function myError(response) {
+                      $scope.error = "true";
+                      console.log("Fail get feed" + response.statusText);
+                  });
+              }
+          }
         /**
          * signOut function
          * we change login state and change the page to login
@@ -114,6 +145,7 @@ angular.module('urssApp').controller('feedListUserCtrl', function($scope, $http,
         }).then(function mySucces(response) {
             var bookmarks = response.data.bookmarks;
             starredArticles = response.data.starredArticles;
+            unreadArticles = response.data.viewedArticles;
             console.log("history = " + bookmarks);
             getFeeds(bookmarks);
         }, function myError(response) {

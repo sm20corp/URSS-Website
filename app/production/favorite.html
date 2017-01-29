@@ -4,7 +4,7 @@
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="#/" class="site_title"><i class="fa fa-star"></i> <span>URSS</span></a>
+              <a  class="site_title"><i class="fa fa-star"></i> <span>URSS</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -84,7 +84,7 @@
                               <h4>{{article.data.title}}</h4>
                           </div>
                           <i ng-click="selectFavorite(article.data._id)" ng-class="{'fa-heart' : articleSelected(article.data._id) == 1, 'fa-heart-o' : articleSelected(article.data._id) == -1}" style="color: #D32F2F;cursor: pointer;font-size: 25px;" class="fa "></i>
-                          <i ng-click="" style="cursor: pointer;font-size: 25px;margin-left: 8px;" class="fa fa-envelope-o"></i>
+                          <i ng-click="selectUnread(article.data._id)" ng-class="{'fa-envelope' : unreadSelected(article.data._id) == 1, 'fa-envelope-o' : unreadSelected(article.data._id) == -1}" style="cursor: pointer;font-size: 25px;margin-left: 8px;" class="fa"></i>
                       </div>
 
                       <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
