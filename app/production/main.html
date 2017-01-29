@@ -91,7 +91,8 @@
                           <div class="col-md-6">
                               <h4>{{article.data.title}}</h4>
                           </div>
-
+                          <i ng-click="selectFavorite(article.data._id)" ng-class="{'fa-heart' : articleSelected(article.data._id) == 1, 'fa-heart-o' : articleSelected(article.data._id) == -1}" style="color: #D32F2F;cursor: pointer;font-size: 25px;" class="fa "></i>
+                          <i ng-click="" style="cursor: pointer;font-size: 25px;margin-left: 8px;" class="fa fa-envelope-o"></i>
                       </div>
 
                       <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
@@ -113,7 +114,9 @@
 
                       <div class="col-md-9 col-sm-9 col-xs-12">
                           <blockquote>
-                              <p ng-bind="{{article.data.pubDate}} * 1000 | date:'MM-dd-yyyy HH:mm:ss'"></p>
+                              <p ng-bind="{{article.data.pubDate}} * 1000 | date:'MM-dd-yyyy HH:mm:ss'">
+                              </p>
+
                               <p>{{article.data.description}}</p>
                               <p><button ng-click="test(article.data.link)" type="button " class="btn btn-round btn-warning" data-toggle="modal" data-target="#myModal">Voir l'article</button>
                                   <a type="button " href="{{article.data.link}}" class="btn btn-round btn-warning">Accéder au site</a></p>
